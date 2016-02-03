@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/01/27/Node-js调试命令总结/index.html">
 <meta property="og:site_name" content="都怪宇宙">
 <meta property="og:description" content="调试技术与开发技术构成了软件开发的基石。目前Nodejs作为新型的Web Server开发栈倍受开发者关注。总的来说Nodejs的应用程序主要有两部分：JavaScript编写的js模块和C语言编译的二进制模块。这里主要介绍三种avaScript模块的调试方法：基于Nodejs内建的调试器，基于V8调试插件和基于Chrome浏览器的调试器。以下所有的操作都将基于如下代码（example.js）：">
-<meta property="og:updated_time" content="2016-01-29T04:32:00.000Z">
+<meta property="og:updated_time" content="2016-02-02T04:09:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js调试命令总结">
 <meta name="twitter:description" content="调试技术与开发技术构成了软件开发的基石。目前Nodejs作为新型的Web Server开发栈倍受开发者关注。总的来说Nodejs的应用程序主要有两部分：JavaScript编写的js模块和C语言编译的二进制模块。这里主要介绍三种avaScript模块的调试方法：基于Nodejs内建的调试器，基于V8调试插件和基于Chrome浏览器的调试器。以下所有的操作都将基于如下代码（example.js）：">
@@ -117,7 +117,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/tools/" style="font-size: 10px;">tools</a>
+						<a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/web/" style="font-size: 10px;">web</a>
 					</div>
 				</section>
 				
@@ -225,7 +225,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
 	</div>
 
         
@@ -239,40 +239,28 @@
         <p>   调试技术与开发技术构成了软件开发的基石。目前Nodejs作为新型的Web Server开发栈倍受开发者关注。总的来说Nodejs的应用程序主要有两部分：JavaScript编写的js模块和C语言编译的二进制模块。这里主要介绍三种avaScript模块的调试方法：基于Nodejs内建的调试器，基于V8调试插件和基于Chrome浏览器的调试器。以下所有的操作都将基于如下代码（example.js）：<a id="more"></a></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">'url'</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> path = url.parse(req.url).pathname;</span><br><span class="line">        res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">        res.end(path);</span><br><span class="line">&#125;).listen(<span class="number">1337</span>, <span class="string">"127.0.0.1"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:1337/'</span>);</span><br></pre></td></tr></table></figure>
 <ol>
-<li><ol>
 <li>基于Nodejs内建的调试器</li>
-</ol>
-</li>
 </ol>
 <p>Nodejs提供了一个内建调试器来帮助开发者调试应用程序。想要开启调试器我们需要在代码中加入debugger标签，当Nodejs执行到debugger标签时会自动暂停（debugger标签相当于在代码中开启一个断点）。代码如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = url.parse(req.url).pathname;</span><br><span class="line"><span class="keyword">debugger</span>;</span><br><span class="line">res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br></pre></td></tr></table></figure>
 <p>执行命令：node debug example.js 就可以进入调试模式。</p>
 <p>在debug模式下，可以使用内建命令如repl去评估变量和表达式的值（如2所示）。我们也可以通过help命令来获取完整的调试命令列表。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Commands: run (r), cont (c), next (n), step (s), out (o), backtrace (bt), <span class="built_in">set</span>Breakpoint (sb), clearBreakpoint (cb),</span><br><span class="line">watch, unwatch, watchers, repl, restart, <span class="built_in">kill</span>, list, scripts, breakpoints, version</span><br></pre></td></tr></table></figure></p>
 <ol>
-<li><ol>
 <li>基于V8插件的调试器<br>Nodejs是基于google V8的引擎上构建的，Google为Eclipse提供了一个对应的调试插件。关于如何在Eclipse中安装和调试Nodejs程序就不再重复描述了，网上已经有很多的文章了（具体可以参考这篇文章<a href="http://cnodejs.org/blog/?p=911）。唯一要注意的是在默认情况下V8引擎支持的调试模式是本地模式。如果想要开启远程调试的话，我们需要修改Nodejs中的V8源文件：/deps/v8/src/platform-posix.cc" target="_blank" rel="external">http://cnodejs.org/blog/?p=911）。唯一要注意的是在默认情况下V8引擎支持的调试模式是本地模式。如果想要开启远程调试的话，我们需要修改Nodejs中的V8源文件：/deps/v8/src/platform-posix.cc</a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">addr.sin_family = AF_INET;</span><br><span class="line">addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK); --&gt; INADDR_ANY</span><br><span class="line">addr.sin_port = htons(port);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
 </li>
 </ol>
 <p>然后重新编译Nodejs。</p>
 <p>提示：</p>
 <p>用插件来调试nodejs程序，你有时候会遇到什么connect refuse, get version failed等等错误。那么请注意你使用的ip的地址， 一般下127.0.0.1的回环地址是都工作的。如果你使用真实的ip地址，请检查防火墙设置。</p>
 <ol>
-<li><ol>
 <li>基于Chrome浏览器的调试器</li>
-</ol>
-</li>
 </ol>
 <p>既然我们可以通过V8的调试插件来调试，那是否也可以借用Chrome浏览器的JavaScript调试器来调试呢？node-inspector模块提供了这样一种可能。我们需要先通过npm来安装node-inspector</p>
 <p>npm install -g node-inspector  // -g 导入安装路径到环境变量<br>node-inspector是通过websocket方式来转向debug输入输出的。因此，我们在调试前要先启动node-inspector来监听Nodejs的debug调试端口。</p>
 <p>默认情况下node-inspector的端口是8080，可以通过参数–web-port=[port]来设置端口。在启动node-inpspector之后，我们可以通过–debug或–debug-brk来启动nodejs程序。通过在浏览器输入<a href="http://[ip" target="_blank" rel="external">http://[ip</a> address]:8080/debug?port=5858，我们会得到如下的调试窗口：</p>
 <p>这三种方法各自有优缺点，我个人比较欣赏node-inspector的方式。</p>
 <ol>
-<li><ol>
 <li>附上nodejs调试命令</li>
-</ol>
-</li>
 </ol>
 <table>
 <thead>
@@ -368,6 +356,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/02/02/更多的人死于心碎/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          更多的人死于心碎
+        
+      </div>
+    </a>
   
   
     <a href="/2016/01/25/前端性能优化/" id="article-nav-older" class="article-nav-link-wrap">

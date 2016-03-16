@@ -4,17 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>都怪宇宙</title>
+  <title>前端模块化 | 都怪宇宙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="都怪宇宙">
-<meta property="og:type" content="website">
-<meta property="og:title" content="都怪宇宙">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="在JavaScript发展初期就是为了实现简单的页面交互逻辑，寥寥数语即可；如今CPU、浏览器性能得到了极大的提升，很多页面逻辑迁移到了客户端（表单验证等），随着web2.0时代的到来，Ajax技术得到广泛应用，jQuery等前端库层出不穷，前端代码日益膨胀
+  这时候JavaScript作为嵌入式的脚本语言的定位动摇了，JavaScript却没有为组织代码提供任何明显帮助，甚至没有类的概念，更不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端模块化">
+<meta property="og:url" content="http://yoursite.com/2016/03/02/前端模块化/index.html">
 <meta property="og:site_name" content="都怪宇宙">
-<meta property="og:description" content="都怪宇宙">
+<meta property="og:description" content="在JavaScript发展初期就是为了实现简单的页面交互逻辑，寥寥数语即可；如今CPU、浏览器性能得到了极大的提升，很多页面逻辑迁移到了客户端（表单验证等），随着web2.0时代的到来，Ajax技术得到广泛应用，jQuery等前端库层出不穷，前端代码日益膨胀
+  这时候JavaScript作为嵌入式的脚本语言的定位动摇了，JavaScript却没有为组织代码提供任何明显帮助，甚至没有类的概念，更不">
+<meta property="og:updated_time" content="2016-03-16T08:04:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="都怪宇宙">
-<meta name="twitter:description" content="都怪宇宙">
+<meta name="twitter:title" content="前端模块化">
+<meta name="twitter:description" content="在JavaScript发展初期就是为了实现简单的页面交互逻辑，寥寥数语即可；如今CPU、浏览器性能得到了极大的提升，很多页面逻辑迁移到了客户端（表单验证等），随着web2.0时代的到来，Ajax技术得到广泛应用，jQuery等前端库层出不穷，前端代码日益膨胀
+  这时候JavaScript作为嵌入式的脚本语言的定位动摇了，JavaScript却没有为组织代码提供任何明显帮助，甚至没有类的概念，更不">
   
     <link rel="alternative" href="/atom.xml" title="都怪宇宙" type="application/atom+xml">
   
@@ -198,175 +202,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-自己封装AJAX" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/16/自己封装AJAX/" class="article-date">
-  	<time datetime="2016-03-16T07:54:20.000Z" itemprop="datePublished">2016-03-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/16/自己封装AJAX/">自己封装AJAX</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>   一直维护公司前端框架,ajax经常用到，为了提高用户友好程度，每个ajax请求前都加代码太难维护了。所以有了下面的代码</p>
-<pre><code>function ajax(opts) {
-  var defaults = {
-    type: &apos;GET&apos;,
-    url: &apos;&apos;,
-    data: &apos;&apos;,
-    async: true,
-    cache: true,
-    contentType: &apos;application/x-www-form-urlencoded&apos;,
-    success: function () {
-    },
-    error: function () {
-    }
-  };
-  for (var key in opts) {
-    defaults[key] = opts[key];
-  }
- if (typeof defaults.data === &apos;object&apos;) {   
-    var str = &apos;&apos;;
-    for (var key in defaults.data) {
-        str += key + &apos;=&apos; + defaults.data[key] + &apos;&amp;&apos;;
-    }
-    defaults.data = str.substring(0, str.length - 1);
-  }
-  defaults.type = defaults.type.toUpperCase();
-  defaults.cache = defaults.cache ? &apos;&apos; : &apos;&amp;&apos; + new Date().getTime();
-  if (defaults.type === &apos;GET&apos; &amp;&amp; (defaults.data || defaults.cache))    defaults.url += &apos;?&apos; + defaults.data + defaults.cache;
-  var oXhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);
-  oXhr.open(defaults.type, defaults.url, defaults.async);
-  if (defaults.type === &apos;GET&apos;)
-     oXhr.send(null);
-  else {
-     oXhr.setRequestHeader(&quot;Content-type&quot;, defaults.contentType);
-     oXhr.send(defaults.data);
-  }
-  oXhr.onreadystatechange = function () {
-      if (oXhr.readyState === 4) {
-          if (oXhr.status === 200)
-              defaults.success.call(oXhr, oXhr.responseText);
-          else {
-              defaults.error();
-          }
-      }
-  };
-  }
-</code></pre><p>我必须走出这漫漫黑暗的夜.</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AJAX/">AJAX</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-花店未来的方向" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/12/花店未来的方向/" class="article-date">
-  	<time datetime="2016-03-12T05:59:14.000Z" itemprop="datePublished">2016-03-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="u82B1_u5E97_u672A_u6765_u7684_u65B9_u5411"><a href="#u82B1_u5E97_u672A_u6765_u7684_u65B9_u5411" class="headerlink" title="花店未来的方向"></a>花店未来的方向</h1><p>鲜花行业也马上就要进入移动互联网的怀抱了。</p>
-<p>从礼品花角度上讲，在移动互联网时代下，很多传统花店都将关门大吉。<br>以下是我的分析（供参考）：<br>在移动互联网的飞速发展下，很多行业都已经迎来变革或者正在变革当中。而鲜花行业由于其行业的特殊性，还处在一个相对传统的状态里。但是，这并不意味着这种状态将会持续下去，而事实上，鲜花行业的变革也已经马上来临，5年之后 很多传统花店都将关门大吉，取而代之的将是更多的线上花店与巨头。<br>有人会说我危言耸听，那下面我们一起来分析一下到底为什么会这样。</p>
-<p>##一、中国的鲜花市场是畸形的，传统花店需要被变革。<br>相信有过花店经营经验的人都可以体会到，开实体花店真的不赚钱。</p>
-<ol>
-<li>店租的巨大成本给经营者带来巨大的压力。</li>
-<li>而销量不稳定导致花的损耗颇大。而这些成本肯定会转嫁到消费者身上。</li>
-<li>另外，因为这种损耗的压力，花店无法备下多种多样的花材，导致最终的产品形态很单一，视觉效果不好。试想一下，消费者在面对一个土的掉渣而又价值数百的花束的时候，会是什么样的心情。</li>
-<li>多半的消费者都还属于被迫消费，而不是出于对于产品本身的喜爱。因此他们不会经常性购买，最终又导致了经营者状态的进一步恶化。</li>
-</ol>
-<p>这就是存在于国内鲜花市场的恶性循环。经营者和消费者都没有得到好处。最终的利润一部分被损耗掉，一部分被开发商盘剥。</p>
-<p>##二、消费者的审美水平逐步在提升，而现有的花店无法满足。<br>未来，消费的主力将由八零后转变为八五后和九零后，这些消费人群从小接触了国外更高审美的影响，对于所购买的产品外观和审美有了更高的追求。而国内现有花店，却很少能够提供这样的匹配性服务。另外，年轻消费者对于线上消费已经有了很强的思维惯性，对于这样的产品更会选择去线上购买更美观更便宜的产品。这点在目前较火的几家线上花店可以窥见一二。</p>
-<h2 id="u4E09_u3001_u79FB_u52A8_u4E92_u8054_u7F51_u7AEF_u7684_u793E_u533A_u5316O2O_u670D_u52A1_uFF0C_u5C06_u4F1A_u8695_u98DF_u4F20_u7EDF_u82B1_u5E97_u7684_u86CB_u7CD5"><a href="#u4E09_u3001_u79FB_u52A8_u4E92_u8054_u7F51_u7AEF_u7684_u793E_u533A_u5316O2O_u670D_u52A1_uFF0C_u5C06_u4F1A_u8695_u98DF_u4F20_u7EDF_u82B1_u5E97_u7684_u86CB_u7CD5" class="headerlink" title="三、移动互联网端的社区化O2O服务，将会蚕食传统花店的蛋糕"></a>三、移动互联网端的社区化O2O服务，将会蚕食传统花店的蛋糕</h2><p>目前移动互联网端的社区化进程正在展开，在美国，这种模式已经初见规模。而与此对应，社区化的o2o也将会大范围普及。每一个小区内的人员将会使用APP享受本小区的社区化服务，使得足不出户也能够享受到各种便捷。鲜花也一定会成为其中的一个组成部分。在此之前，更多的传统花店之所以能生存，是因为很多消费者不愿意跑很远去买花，也不愿意去网上购买鲜花等待一天后送达。而社区O2O一旦普及，消费者即可在家通过APP订购，2小时内送达。相比之下，传统花店将会受到巨大的冲击。<br>相信移动互联网对于很多传统的人来说，还只是一个看电影，玩游戏玩微信的途径而已。他们不会认识到移动互联网的精髓到底在哪里，也就更无法认识到为什么移动互联网可以颠覆如此多的行业。而对于鲜花市场，移动互联网能带来什么？为什么可以将现有的鲜花市场给颠覆？</p>
-<h2 id="u4E00_u3001_u7EBF_u4E0A_u82B1_u5E97_u5C06_u6781_u5927_u7684_u964D_u4F4E_u7ECF_u8425_u6210_u672C_u3002"><a href="#u4E00_u3001_u7EBF_u4E0A_u82B1_u5E97_u5C06_u6781_u5927_u7684_u964D_u4F4E_u7ECF_u8425_u6210_u672C_u3002" class="headerlink" title="一、线上花店将极大的降低经营成本。"></a>一、线上花店将极大的降低经营成本。</h2><p>线上花店普及，花店经营成本迅速下降。移动互联网给更多的人机会开一家属于自己的花店。</p>
-<p>而线上花店相比于普通花店， 在店租一项就获得了巨大的优势。<br>除此之外，理论上，线上花店可以将花材的损耗控制到接近于零。</p>
-<p>综合以上两点，线上花店的经营成本将极大的降低。他们也将会为消费者提供更低售价的产品，同时还能保持较高的利润。</p>
-<h2 id="u4E8C_u3001_u7EBF_u4E0A_u82B1_u5E97_u53EF_u4EE5_u63D0_u4F9B_u66F4_u597D_u7684_u4F1A_u5458_u670D_u52A1_uFF0C_u6316_u6398_u5BA2_u6237_u7684_u7EC8_u8EAB_u4EF7_u503C_u3002"><a href="#u4E8C_u3001_u7EBF_u4E0A_u82B1_u5E97_u53EF_u4EE5_u63D0_u4F9B_u66F4_u597D_u7684_u4F1A_u5458_u670D_u52A1_uFF0C_u6316_u6398_u5BA2_u6237_u7684_u7EC8_u8EAB_u4EF7_u503C_u3002" class="headerlink" title="二、线上花店可以提供更好的会员服务，挖掘客户的终身价值。"></a>二、线上花店可以提供更好的会员服务，挖掘客户的终身价值。</h2><p>对于花店来说，如果只是一笔一笔成交的话，是非常不划算的，单个客户的获取成本太大。所以，如何将客户收入囊中，增大回头率，挖掘客户的终身价值才是一个更重要的议题。</p>
-<p>而随着移动互联网端比较强悍的会员管理系统的应用，线上花店将在会员服务端取得更大的优势。线上花店可以以此为依托，便捷的与更多的会员展开互动，增强粘性，甚至开展个人客户的包年服务，VIP服务。</p>
-<h2 id="u4E09_u3001_u7EBF_u4E0A_u82B1_u5E97_u53EF_u4EE5_u63D0_u4F9B_u66F4_u597D_u7684_u4EA7_u54C1_u3002"><a href="#u4E09_u3001_u7EBF_u4E0A_u82B1_u5E97_u53EF_u4EE5_u63D0_u4F9B_u66F4_u597D_u7684_u4EA7_u54C1_u3002" class="headerlink" title="三、线上花店可以提供更好的产品。"></a>三、线上花店可以提供更好的产品。</h2><p>受益于成本的降低，线上花店有更多的精力和资金对产品进行研发。</p>
-<p>####而这才是一个花店发展壮大的根本之道。</p>
-<p>此条不在赘述，调查一下线上花店的产品水平再看一下线下花店的平均水平，就可以得到结果。<br>说了这么多线上花店的好处，很多人可能会问，这波潮流将会在什么时候开始呢？</p>
-<pre><code>在我看来，线上花店的真正爆发时间点，取决于物流。
-</code></pre><p>本质上讲，鲜花也属于生鲜，在物流上有很大的劣势。生鲜的冷链物流是目前正在攻克的难题，顺丰与菜鸟网络正在为解决这个问题而努力，因为大家知道，这将是未来一个很大的市场。鲜花也会因此而受益。在不久的将来，一旦生鲜的冷链运输问题解决，鲜花行业就会打破地域的局限。传统的花店最后一个保护屏障就将被坏。80%的传统花店将关门大吉，剩下的只会是一些具有品牌效应的花店与大量的线上花店。<br>朋友曾经国内最大的进口鲜花代理商，现在都已经转战线上了，他们的服务是让各地的花店通过互联网直接就可以下单预定鲜花，保证24小时内送达。各位花店经营者如果想要更好的存活，可以认真思考一下，不要仅仅看到眼下的状态，更要看懂看清未来五年的趋势。</p>
-<p>从花艺的角度上来考虑：<br>会有一部分有品位的花店以实体店的形式存活下来，但是需要注意的是，本质上讲，他们已经不是在卖礼品花，而是在售卖一种情调和品位。另外，花店给人带来的良好的氛围也会成为一种重要的吸引力和竞争力。这点其实可以参照咖啡店的现状来考虑。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-前端模块化" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-前端模块化" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/03/02/前端模块化/" class="article-date">
@@ -382,12 +218,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/02/前端模块化/">前端模块化</a>
+    <h1 class="article-title" itemprop="name">
+      前端模块化
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -471,160 +318,77 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-更多的人死于心碎" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/02/更多的人死于心碎/" class="article-date">
-  	<time datetime="2016-02-02T03:42:40.000Z" itemprop="datePublished">2016-02-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+<nav id="article-nav">
+  
+    <a href="/2016/03/12/花店未来的方向/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/02/更多的人死于心碎/">更多的人死于心碎</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>2015年12月28日中午，Debian操作系统的创始人Ian Murdock，在推特上发布了一条简短的消息。</p>
-<img src="/2016/02/02/更多的人死于心碎/bg2016011701.jpg" alt="bg2016011701.jpg" title="">
-<blockquote>
-<p>我将在今晚自杀，请不要打扰，我要抓紧时间说一些事情，不让它们跟我一起走<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/02/02/更多的人死于心碎/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Node-js调试命令总结" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/27/Node-js调试命令总结/" class="article-date">
-  	<time datetime="2016-01-27T02:41:26.000Z" itemprop="datePublished">2016-01-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          (no title)
         
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/27/Node-js调试命令总结/">Node.js调试命令总结</a>
-    </h1>
   
+    <a href="/2016/02/02/更多的人死于心碎/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">更多的人死于心碎</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>   调试技术与开发技术构成了软件开发的基石。目前Nodejs作为新型的Web Server开发栈倍受开发者关注。总的来说Nodejs的应用程序主要有两部分：JavaScript编写的js模块和C语言编译的二进制模块。这里主要介绍三种avaScript模块的调试方法：基于Nodejs内建的调试器，基于V8调试插件和基于Chrome浏览器的调试器。以下所有的操作都将基于如下代码（example.js）：
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/01/27/Node-js调试命令总结/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
 </article>
 
 
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
 
 
 
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="前端模块化" data-title="前端模块化" data-url="http://yoursite.com/2016/03/02/前端模块化/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
+
+
+
 </div>
       <footer id="footer">
   <div class="outer">
@@ -648,8 +412,8 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

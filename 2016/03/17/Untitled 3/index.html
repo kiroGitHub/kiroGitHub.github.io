@@ -4,39 +4,36 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>自己封装AJAX | 都怪宇宙</title>
+  <title>都怪宇宙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一直维护公司前端框架,ajax经常用到，为了提高用户友好程度，每个ajax请求前都加代码太难维护了。所以有了下面的代码
-function ajax(opts) {
-  var defaults = {
-    type: &amp;apos;GET&amp;apos;,
-    url: &amp;apos;&amp;apos;,
-    data: &amp;apos;&amp;apos;,
-    async: true,
-    cach">
+  <meta name="description" content="CSS框架的迷思
+bootstrapsemantic-uifoundition
+OOCSS面向对象的CSS
+SMACSS
+Selector performance classes are indexed right to left
+ACSS 原子CSS.mr-20{ margin-left:20px }
+BEM  block_element_modify">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己封装AJAX">
-<meta property="og:url" content="http://yoursite.com/2016/03/16/自己封装AJAX/index.html">
+<meta property="og:title" content="都怪宇宙">
+<meta property="og:url" content="http://yoursite.com/2016/03/17/Untitled 3/index.html">
 <meta property="og:site_name" content="都怪宇宙">
-<meta property="og:description" content="一直维护公司前端框架,ajax经常用到，为了提高用户友好程度，每个ajax请求前都加代码太难维护了。所以有了下面的代码
-function ajax(opts) {
-  var defaults = {
-    type: &amp;apos;GET&amp;apos;,
-    url: &amp;apos;&amp;apos;,
-    data: &amp;apos;&amp;apos;,
-    async: true,
-    cach">
-<meta property="og:updated_time" content="2016-03-16T08:04:09.000Z">
+<meta property="og:description" content="CSS框架的迷思
+bootstrapsemantic-uifoundition
+OOCSS面向对象的CSS
+SMACSS
+Selector performance classes are indexed right to left
+ACSS 原子CSS.mr-20{ margin-left:20px }
+BEM  block_element_modify">
+<meta property="og:updated_time" content="2016-03-17T05:42:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己封装AJAX">
-<meta name="twitter:description" content="一直维护公司前端框架,ajax经常用到，为了提高用户友好程度，每个ajax请求前都加代码太难维护了。所以有了下面的代码
-function ajax(opts) {
-  var defaults = {
-    type: &amp;apos;GET&amp;apos;,
-    url: &amp;apos;&amp;apos;,
-    data: &amp;apos;&amp;apos;,
-    async: true,
-    cach">
+<meta name="twitter:title" content="都怪宇宙">
+<meta name="twitter:description" content="CSS框架的迷思
+bootstrapsemantic-uifoundition
+OOCSS面向对象的CSS
+SMACSS
+Selector performance classes are indexed right to left
+ACSS 原子CSS.mr-20{ margin-left:20px }
+BEM  block_element_modify">
   
     <link rel="alternative" href="/atom.xml" title="都怪宇宙" type="application/atom+xml">
   
@@ -220,11 +217,11 @@ function ajax(opts) {
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-自己封装AJAX" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Untitled 3" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/16/自己封装AJAX/" class="article-date">
-  	<time datetime="2016-03-16T07:54:20.000Z" itemprop="datePublished">2016-03-16</time>
+      <a href="/2016/03/17/Untitled 3/" class="article-date">
+  	<time datetime="2016-03-17T05:42:11.000Z" itemprop="datePublished">2016-03-17</time>
 </a>
     </div>
   
@@ -233,76 +230,15 @@ function ajax(opts) {
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      自己封装AJAX
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AJAX/">AJAX</a></li></ul>
-	</div>
-
-        
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>   一直维护公司前端框架,ajax经常用到，为了提高用户友好程度，每个ajax请求前都加代码太难维护了。所以有了下面的代码</p>
-<pre><code>function ajax(opts) {
-  var defaults = {
-    type: &apos;GET&apos;,
-    url: &apos;&apos;,
-    data: &apos;&apos;,
-    async: true,
-    cache: true,
-    contentType: &apos;application/x-www-form-urlencoded&apos;,
-    success: function () {
-    },
-    error: function () {
-    }
-  };
-  for (var key in opts) {
-    defaults[key] = opts[key];
-  }
- if (typeof defaults.data === &apos;object&apos;) {   
-    var str = &apos;&apos;;
-    for (var key in defaults.data) {
-        str += key + &apos;=&apos; + defaults.data[key] + &apos;&amp;&apos;;
-    }
-    defaults.data = str.substring(0, str.length - 1);
-  }
-  defaults.type = defaults.type.toUpperCase();
-  defaults.cache = defaults.cache ? &apos;&apos; : &apos;&amp;&apos; + new Date().getTime();
-  if (defaults.type === &apos;GET&apos; &amp;&amp; (defaults.data || defaults.cache))    defaults.url += &apos;?&apos; + defaults.data + defaults.cache;
-  var oXhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);
-  oXhr.open(defaults.type, defaults.url, defaults.async);
-  if (defaults.type === &apos;GET&apos;)
-     oXhr.send(null);
-  else {
-     oXhr.setRequestHeader(&quot;Content-type&quot;, defaults.contentType);
-     oXhr.send(defaults.data);
-  }
-  oXhr.onreadystatechange = function () {
-      if (oXhr.readyState === 4) {
-          if (oXhr.status === 200)
-              defaults.success.call(oXhr, oXhr.responseText);
-          else {
-              defaults.error();
-          }
-      }
-  };
-  }
-</code></pre><p>我必须走出这漫漫黑暗的夜.</p>
+        <p>CSS框架的迷思</p>
+<p>bootstrap<br>semantic-ui<br>foundition</p>
+<p>OOCSS<br>面向对象的CSS</p>
+<p>SMACSS</p>
+<p>Selector performance<br> classes are indexed<br> right to left</p>
+<p>ACSS 原子CSS<br>.mr-20{ margin-left:20px }</p>
+<p>BEM  block_element_modify</p>
 
       
     </div>
@@ -312,18 +248,9 @@ function ajax(opts) {
     
 <nav id="article-nav">
   
-    <a href="/2016/03/17/Untitled 3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/12/花店未来的方向/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2016/03/16/自己封装AJAX/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">自己封装AJAX</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -358,7 +285,7 @@ function ajax(opts) {
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="自己封装AJAX" data-title="自己封装AJAX" data-url="http://yoursite.com/2016/03/16/自己封装AJAX/"></div>
+	<div class="ds-thread" data-thread-key="Untitled 3" data-title="" data-url="http://yoursite.com/2016/03/17/Untitled 3/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
